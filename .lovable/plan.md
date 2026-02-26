@@ -1,63 +1,113 @@
 
 
-# Updated Plan: Zenebe Tesfaye Torino & Ye Gabior Inbox Enterprise Manufacturing Website
+# Plan: Logo Placeholder + Amharic/English Language Support
 
-## Updates from Previous Plan
+## 1. Logo Placeholder
 
-### Fonts
-- **Fraunces** — for bold, elegant headings (serif with personality)
-- **Montserrat** — for subheadings and UI elements (clean sans-serif)
-- **Space Grotesk** — for body text and descriptions (modern geometric sans-serif)
-- All loaded via Google Fonts
+Add a placeholder logo image area in the Navbar and Footer where the company text-only brand currently sits. This will be a styled square/rectangular container with a generic icon (e.g., a gear/cog or the text "LOGO") that can later be swapped for a real logo file.
 
-### Design Style: Glassmorphism (inspired by ui.glass)
-- Semi-transparent frosted glass cards and panels using `backdrop-filter: blur()` with subtle borders
-- Layered translucent backgrounds over dark industrial imagery
-- Soft glowing highlights and gradient overlays behind glass elements
-- Dark navy/steel background with glass-effect cards for products, services, team sections
-- Subtle shadow and border-radius for depth
+**Files changed:** `Navbar.tsx`, `Footer.tsx`
 
-### Animation & Tech Stack
-- **GSAP** for scroll-triggered animations, hero text reveals, and element entrances
-- **Lottie** for animated icons (e.g., gear spinning, manufacturing process illustrations)
-- **Tailwind CSS** as the primary utility framework (already installed)
-- Custom CSS/SCSS for glassmorphism effects and advanced styling
-- Responsive design with mobile-first approach
+- Replace the text-only brand block with a flex row containing a 40×40px placeholder box (rounded, bordered, with a `Cog` icon or "Z" monogram inside) next to the company name text.
 
-## Pages & Features (unchanged from previous plan)
+---
 
-### 1. Home Page
-- Hero section with glassmorphism overlay card on industrial background
-- GSAP-animated headline: "Precision Metal Manufacturing in Bahir Dar"
-- Fraunces font for the main headline, Montserrat for CTAs
-- Glass-effect featured products cards
-- "Why Choose Us" section with Lottie animated icons
-- Quick contact strip
+## 2. Amharic/English Language Toggle
 
-### 2. About Us Page
-- Glass card layout for company story, mission, and capabilities
-- GSAP scroll animations for section reveals
-- Founder/team section with frosted glass profile cards
+Create an internationalization (i18n) system using React Context — no extra dependencies needed.
 
-### 3. Products & Services Page
-- Glassmorphism product cards with hover effects
-- Category filter tabs
-- Items: spare parts, shafts, bolts, bushings, custom parts, repair works
+### Architecture
 
-### 4. Gallery Page
-- Masonry grid with glass-overlay captions
-- Lightbox modal for full-size viewing
-- GSAP stagger animations on scroll
+```text
+src/
+  contexts/
+    LanguageContext.tsx    ← Context provider + useLanguage hook
+  lib/
+    translations.ts       ← All EN/AM string pairs
+  components/
+    LanguageToggle.tsx    ← Toggle button (EN | አማ)
+```
 
-### 5. Contact Page
-- Glass-effect contact form
-- Business details in frosted panel
-- Embedded Google Maps
-- Mobile-friendly "Call Now" button
+### Translation Keys
 
-### 6. Shared Components
-- Glass-effect navigation bar with blur backdrop
-- Frosted glass footer
-- Smooth GSAP page transitions
-- Fully responsive across all devices
+Every user-visible string across all 5 pages, the Navbar, and the Footer will have an English and Amharic version stored in `translations.ts` as a flat key-value map:
+
+```ts
+const translations = {
+  en: {
+    "nav.home": "Home",
+    "nav.about": "About",
+    "nav.products": "Products",
+    "nav.gallery": "Gallery",
+    "nav.contact": "Contact",
+    "nav.callNow": "Call Now",
+    "hero.title1": "Precision Metal",
+    "hero.title2": "Manufacturing",
+    "hero.title3": "in Bahir Dar",
+    "hero.subtitle": "Expert lathe works, custom metal parts...",
+    // ... all strings for About, Products, Gallery, Contact, Footer
+  },
+  am: {
+    "nav.home": "መነሻ",
+    "nav.about": "ስለ እኛ",
+    "nav.products": "ምርቶች",
+    "nav.gallery": "ማዕከለ-ስዕላት",
+    "nav.contact": "ያግኙን",
+    "nav.callNow": "አሁን ይደውሉ",
+    "hero.title1": "ትክክለኛ የብረት",
+    "hero.title2": "ማምረት",
+    "hero.title3": "በባህር ዳር",
+    "hero.subtitle": "የቶርኖ ስራ፣ ብጁ የብረት ክፍሎች...",
+    // ... all Amharic translations
+  }
+};
+```
+
+### LanguageContext
+
+- Stores current language (`"en"` | `"am"`) in state, persisted to `localStorage`.
+- Provides a `t(key)` function that returns the translated string.
+- Provides `toggleLanguage()` and `language` value.
+
+### LanguageToggle Component
+
+- A small glass-styled button in the Navbar showing **EN | አማ**.
+- Clicking toggles between English and Amharic.
+- Placed next to the "Call Now" button on desktop, and at the top of the mobile menu.
+
+### Page Updates
+
+All 6 files with hardcoded text will be updated to use the `t()` function:
+
+| File | Approximate string count |
+|---|---|
+| `Navbar.tsx` | ~7 strings |
+| `Footer.tsx` | ~12 strings |
+| `Index.tsx` | ~20 strings |
+| `About.tsx` | ~18 strings |
+| `Products.tsx` | ~20 strings |
+| `Gallery.tsx` | ~12 strings |
+| `Contact.tsx` | ~18 strings |
+
+### Wrap App with Provider
+
+In `App.tsx`, wrap everything with `<LanguageProvider>`.
+
+---
+
+## Summary of Files
+
+| Action | File |
+|---|---|
+| Create | `src/lib/translations.ts` |
+| Create | `src/contexts/LanguageContext.tsx` |
+| Create | `src/components/LanguageToggle.tsx` |
+| Edit | `src/App.tsx` — wrap with LanguageProvider |
+| Edit | `src/components/Navbar.tsx` — logo placeholder + language toggle + t() |
+| Edit | `src/components/Footer.tsx` — logo placeholder + t() |
+| Edit | `src/pages/Index.tsx` — t() for all strings |
+| Edit | `src/pages/About.tsx` — t() for all strings |
+| Edit | `src/pages/Products.tsx` — t() for all strings |
+| Edit | `src/pages/Gallery.tsx` — t() for all strings |
+| Edit | `src/pages/Contact.tsx` — t() for all strings |
 
