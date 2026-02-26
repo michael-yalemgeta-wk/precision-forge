@@ -1,20 +1,23 @@
 import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { Menu, X, Phone } from "lucide-react";
+import { Menu, X, Phone, Cog } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { useLanguage } from "@/contexts/LanguageContext";
+import LanguageToggle from "@/components/LanguageToggle";
 
-const navItems = [
-  { label: "Home", path: "/" },
-  { label: "About", path: "/about" },
-  { label: "Products", path: "/products" },
-  { label: "Gallery", path: "/gallery" },
-  { label: "Contact", path: "/contact" },
+const navKeys = [
+  { key: "nav.home", path: "/" },
+  { key: "nav.about", path: "/about" },
+  { key: "nav.products", path: "/products" },
+  { key: "nav.gallery", path: "/gallery" },
+  { key: "nav.contact", path: "/contact" },
 ];
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const location = useLocation();
+  const { t } = useLanguage();
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 20);
@@ -33,18 +36,24 @@ const Navbar = () => {
       }`}
     >
       <div className="container mx-auto flex items-center justify-between px-4">
-        <Link to="/" className="flex flex-col">
-          <span className="font-heading text-lg font-bold text-foreground leading-tight">
-            Zenebe Tesfaye Torino
-          </span>
-          <span className="font-ui text-[10px] uppercase tracking-[0.2em] text-muted-foreground">
-            & Ye Gabior Inbox Enterprise
-          </span>
+        <Link to="/" className="flex items-center gap-3">
+          {/* Logo Placeholder */}
+          <div className="w-10 h-10 rounded-lg border border-primary/30 bg-primary/10 flex items-center justify-center shrink-0">
+            <Cog className="w-5 h-5 text-primary" />
+          </div>
+          <div className="flex flex-col">
+            <span className="font-heading text-lg font-bold text-foreground leading-tight">
+              {t("nav.brandName")}
+            </span>
+            <span className="font-ui text-[10px] uppercase tracking-[0.2em] text-muted-foreground">
+              {t("nav.brandSub")}
+            </span>
+          </div>
         </Link>
 
         {/* Desktop nav */}
         <div className="hidden lg:flex items-center gap-1">
-          {navItems.map((item) => (
+          {navKeys.map((item) => (
             <Link
               key={item.path}
               to={item.path}
@@ -54,13 +63,14 @@ const Navbar = () => {
                   : "text-muted-foreground hover:text-foreground hover:bg-secondary/50"
               }`}
             >
-              {item.label}
+              {t(item.key)}
             </Link>
           ))}
+          <LanguageToggle />
           <a href="tel:+251918353873">
-            <Button size="sm" className="ml-4 font-ui gap-2 bg-primary text-primary-foreground hover:bg-primary/90">
+            <Button size="sm" className="ml-2 font-ui gap-2 bg-primary text-primary-foreground hover:bg-primary/90">
               <Phone className="w-3.5 h-3.5" />
-              Call Now
+              {t("nav.callNow")}
             </Button>
           </a>
         </div>
@@ -78,7 +88,10 @@ const Navbar = () => {
       {/* Mobile menu */}
       {isOpen && (
         <div className="lg:hidden glass-strong mt-2 mx-4 rounded-lg p-4 animate-fade-in-up">
-          {navItems.map((item) => (
+          <div className="flex justify-end mb-2">
+            <LanguageToggle />
+          </div>
+          {navKeys.map((item) => (
             <Link
               key={item.path}
               to={item.path}
@@ -88,13 +101,13 @@ const Navbar = () => {
                   : "text-muted-foreground hover:text-foreground"
               }`}
             >
-              {item.label}
+              {t(item.key)}
             </Link>
           ))}
           <a href="tel:+251918353873" className="block mt-2">
             <Button className="w-full font-ui gap-2 bg-primary text-primary-foreground">
               <Phone className="w-3.5 h-3.5" />
-              Call Now
+              {t("nav.callNow")}
             </Button>
           </a>
         </div>
