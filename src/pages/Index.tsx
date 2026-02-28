@@ -1,32 +1,17 @@
 import { useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
-import { Phone, Mail, ArrowRight, Shield, Cog, Wrench, Zap } from "lucide-react";
+import { Phone, Mail, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Layout from "@/components/Layout";
 import { useLanguage } from "@/contexts/LanguageContext";
+import { companyInfo, homeProducts, whyUsItems } from "@/lib/siteData";
 import gsap from "gsap";
-
-const productIcons = [Cog, Wrench, Shield, Zap];
 
 const Index = () => {
   const { t } = useLanguage();
   const heroRef = useRef<HTMLDivElement>(null);
   const productsRef = useRef<HTMLDivElement>(null);
   const whyRef = useRef<HTMLDivElement>(null);
-
-  const products = [
-    { titleKey: "home.product1.title", descKey: "home.product1.desc", icon: productIcons[0] },
-    { titleKey: "home.product2.title", descKey: "home.product2.desc", icon: productIcons[1] },
-    { titleKey: "home.product3.title", descKey: "home.product3.desc", icon: productIcons[2] },
-    { titleKey: "home.product4.title", descKey: "home.product4.desc", icon: productIcons[3] },
-  ];
-
-  const whyUs = [
-    { titleKey: "home.why1.title", descKey: "home.why1.desc" },
-    { titleKey: "home.why2.title", descKey: "home.why2.desc" },
-    { titleKey: "home.why3.title", descKey: "home.why3.desc" },
-    { titleKey: "home.why4.title", descKey: "home.why4.desc" },
-  ];
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -67,7 +52,7 @@ const Index = () => {
               {t("hero.subtitle")}
             </p>
             <div className="hero-cta flex flex-col sm:flex-row items-center justify-center gap-4">
-              <a href="tel:+251918353873">
+              <a href={`tel:${companyInfo.phoneRaw}`}>
                 <Button size="lg" className="font-ui gap-2 bg-primary text-primary-foreground hover:bg-primary/90 text-base px-8">
                   <Phone className="w-4 h-4" />
                   {t("hero.callNow")}
@@ -95,7 +80,7 @@ const Index = () => {
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {products.map((product) => (
+            {homeProducts.map((product) => (
               <div key={product.titleKey} className="product-card glass rounded-xl p-6 hover:glass-glow transition-shadow duration-300 group cursor-pointer">
                 <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center mb-4 group-hover:bg-primary/20 transition-colors">
                   <product.icon className="w-6 h-6 text-primary" />
@@ -128,7 +113,7 @@ const Index = () => {
               <p className="font-body text-muted-foreground max-w-lg mx-auto">{t("home.why.sub")}</p>
             </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-              {whyUs.map((item, i) => (
+              {whyUsItems.map((item, i) => (
                 <div key={item.titleKey} className="why-card text-center p-6 rounded-xl bg-secondary/20 border border-border/30">
                   <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-4">
                     <span className="font-heading text-lg font-bold text-primary">{i + 1}</span>
@@ -151,13 +136,13 @@ const Index = () => {
               <p className="font-body text-sm text-muted-foreground">{t("home.cta.sub")}</p>
             </div>
             <div className="flex gap-3">
-              <a href="tel:+251918353873">
+              <a href={`tel:${companyInfo.phoneRaw}`}>
                 <Button className="font-ui gap-2 bg-primary text-primary-foreground hover:bg-primary/90">
                   <Phone className="w-4 h-4" />
-                  +251 918 353 873
+                  {companyInfo.phone}
                 </Button>
               </a>
-              <a href="mailto:zenebetorno@gmail.com">
+              <a href={`mailto:${companyInfo.email}`}>
                 <Button variant="outline" className="font-ui gap-2 border-border text-foreground hover:bg-secondary/50">
                   <Mail className="w-4 h-4" />
                   {t("hero.contactUs")}

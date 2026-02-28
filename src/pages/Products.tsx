@@ -1,34 +1,16 @@
 import { useEffect, useRef, useState } from "react";
 import Layout from "@/components/Layout";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Cog, Wrench, Shield, Zap, Settings, Hammer } from "lucide-react";
 import { useLanguage } from "@/contexts/LanguageContext";
+import { products, productCategories } from "@/lib/siteData";
 import gsap from "gsap";
-
-const allProducts = [
-  { titleKey: "products.item1.title", descKey: "products.item1.desc", category: "parts", icon: Cog, materials: "Steel, Aluminum, Alloy" },
-  { titleKey: "products.item2.title", descKey: "products.item2.desc", category: "parts", icon: Settings, materials: "Carbon Steel, Stainless Steel" },
-  { titleKey: "products.item3.title", descKey: "products.item3.desc", category: "parts", icon: Shield, materials: "High-tensile Steel" },
-  { titleKey: "products.item4.title", descKey: "products.item4.desc", category: "parts", icon: Cog, materials: "Bronze, Steel, Composite" },
-  { titleKey: "products.item5.title", descKey: "products.item5.desc", category: "custom", icon: Zap, materials: "Various Metals" },
-  { titleKey: "products.item6.title", descKey: "products.item6.desc", category: "custom", icon: Wrench, materials: "As Required" },
-  { titleKey: "products.item7.title", descKey: "products.item7.desc", category: "repair", icon: Hammer, materials: "N/A" },
-  { titleKey: "products.item8.title", descKey: "products.item8.desc", category: "repair", icon: Wrench, materials: "Original Material" },
-];
 
 const Products = () => {
   const { t } = useLanguage();
   const [activeTab, setActiveTab] = useState("all");
   const gridRef = useRef<HTMLDivElement>(null);
 
-  const catKeys = [
-    { id: "all", key: "products.cat.all" },
-    { id: "parts", key: "products.cat.parts" },
-    { id: "custom", key: "products.cat.custom" },
-    { id: "repair", key: "products.cat.repair" },
-  ];
-
-  const filtered = activeTab === "all" ? allProducts : allProducts.filter((p) => p.category === activeTab);
+  const filtered = activeTab === "all" ? products : products.filter((p) => p.category === activeTab);
 
   useEffect(() => {
     if (gridRef.current) {
@@ -48,7 +30,7 @@ const Products = () => {
 
         <Tabs value={activeTab} onValueChange={setActiveTab} className="mb-10">
           <TabsList className="glass mx-auto flex w-fit">
-            {catKeys.map((cat) => (
+            {productCategories.map((cat) => (
               <TabsTrigger key={cat.id} value={cat.id} className="font-ui text-sm data-[state=active]:bg-primary/20 data-[state=active]:text-primary">
                 {t(cat.key)}
               </TabsTrigger>
