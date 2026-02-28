@@ -1,17 +1,10 @@
 import { Link } from "react-router-dom";
 import { Phone, Mail, MapPin, Cog } from "lucide-react";
 import { useLanguage } from "@/contexts/LanguageContext";
+import { companyInfo, navLinks } from "@/lib/siteData";
 
 const Footer = () => {
   const { t } = useLanguage();
-
-  const links = [
-    { key: "nav.home", path: "/" },
-    { key: "nav.about", path: "/about" },
-    { key: "nav.products", path: "/products" },
-    { key: "nav.gallery", path: "/gallery" },
-    { key: "nav.contact", path: "/contact" },
-  ];
 
   return (
     <footer className="glass-strong border-t border-border/50 mt-20">
@@ -43,7 +36,7 @@ const Footer = () => {
               {t("footer.quickLinks")}
             </h4>
             <div className="flex flex-col gap-2">
-              {links.map((link) => (
+              {navLinks.map((link) => (
                 <Link
                   key={link.path}
                   to={link.path}
@@ -62,18 +55,18 @@ const Footer = () => {
             </h4>
             <div className="flex flex-col gap-3">
               <a
-                href="tel:+251918353873"
+                href={`tel:${companyInfo.phoneRaw}`}
                 className="flex items-center gap-3 font-body text-sm text-muted-foreground hover:text-primary transition-colors"
               >
                 <Phone className="w-4 h-4 text-primary" />
-                +251 918 353 873
+                {companyInfo.phone}
               </a>
               <a
-                href="mailto:zenebetorno@gmail.com"
+                href={`mailto:${companyInfo.email}`}
                 className="flex items-center gap-3 font-body text-sm text-muted-foreground hover:text-primary transition-colors"
               >
                 <Mail className="w-4 h-4 text-primary" />
-                zenebetorno@gmail.com
+                {companyInfo.email}
               </a>
               <div className="flex items-start gap-3 font-body text-sm text-muted-foreground">
                 <MapPin className="w-4 h-4 text-primary mt-0.5" />

@@ -6,6 +6,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Phone, Mail, MapPin, Send } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { useLanguage } from "@/contexts/LanguageContext";
+import { companyInfo } from "@/lib/siteData";
 import gsap from "gsap";
 
 const Contact = () => {
@@ -83,7 +84,7 @@ const Contact = () => {
                   </div>
                   <div>
                     <h4 className="font-ui text-sm font-semibold text-foreground">{t("contact.details.phone")}</h4>
-                    <a href="tel:+251918353873" className="font-body text-sm text-muted-foreground hover:text-primary transition-colors">+251 918 353 873</a>
+                    <a href={`tel:${companyInfo.phoneRaw}`} className="font-body text-sm text-muted-foreground hover:text-primary transition-colors">{companyInfo.phone}</a>
                   </div>
                 </div>
                 <div className="flex items-start gap-4">
@@ -92,7 +93,7 @@ const Contact = () => {
                   </div>
                   <div>
                     <h4 className="font-ui text-sm font-semibold text-foreground">{t("contact.details.email")}</h4>
-                    <a href="mailto:zenebetorno@gmail.com" className="font-body text-sm text-muted-foreground hover:text-primary transition-colors">zenebetorno@gmail.com</a>
+                    <a href={`mailto:${companyInfo.email}`} className="font-body text-sm text-muted-foreground hover:text-primary transition-colors">{companyInfo.email}</a>
                   </div>
                 </div>
               </div>
@@ -100,13 +101,13 @@ const Contact = () => {
 
             <div className="contact-block glass rounded-2xl overflow-hidden h-64">
               <iframe
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d62236.41338818462!2d37.3503!3d11.5936!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x164326430e405b39%3A0x5c4d0498e495cc6f!2sBahir%20Dar!5e0!3m2!1sen!2set!4v1700000000000"
+                src={companyInfo.mapEmbedUrl}
                 width="100%" height="100%" style={{ border: 0 }} allowFullScreen loading="lazy"
                 referrerPolicy="no-referrer-when-downgrade" title="Location - Bahir Dar, Ethiopia"
               />
             </div>
 
-            <a href="tel:+251918353873" className="block lg:hidden">
+            <a href={`tel:${companyInfo.phoneRaw}`} className="block lg:hidden">
               <Button size="lg" className="w-full font-ui gap-2 bg-primary text-primary-foreground hover:bg-primary/90 text-lg py-6">
                 <Phone className="w-5 h-5" />
                 {t("nav.callNow")}

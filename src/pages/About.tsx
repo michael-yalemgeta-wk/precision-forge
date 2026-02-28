@@ -1,7 +1,8 @@
 import { useEffect, useRef } from "react";
 import Layout from "@/components/Layout";
-import { Target, Eye, Award, Clock } from "lucide-react";
+import { Target, Eye } from "lucide-react";
 import { useLanguage } from "@/contexts/LanguageContext";
+import { aboutCapabilities } from "@/lib/siteData";
 import gsap from "gsap";
 
 const About = () => {
@@ -14,13 +15,6 @@ const About = () => {
     }, sectionRef);
     return () => ctx.revert();
   }, []);
-
-  const capabilities = [
-    { icon: Award, titleKey: "about.cap1.title", descKey: "about.cap1.desc" },
-    { icon: Clock, titleKey: "about.cap2.title", descKey: "about.cap2.desc" },
-    { icon: Target, titleKey: "about.cap3.title", descKey: "about.cap3.desc" },
-    { icon: Eye, titleKey: "about.cap4.title", descKey: "about.cap4.desc" },
-  ];
 
   return (
     <Layout>
@@ -58,7 +52,7 @@ const About = () => {
         <div className="about-card glass rounded-2xl p-8 md:p-12 max-w-4xl mx-auto">
           <h2 className="font-heading text-2xl font-bold text-foreground mb-6 text-center">{t("about.capabilities.title")}</h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-            {capabilities.map((item) => (
+            {aboutCapabilities.map((item) => (
               <div key={item.titleKey} className="flex gap-4 p-4 rounded-lg bg-secondary/20 border border-border/30">
                 <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center shrink-0">
                   <item.icon className="w-5 h-5 text-primary" />

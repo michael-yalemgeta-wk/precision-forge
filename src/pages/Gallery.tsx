@@ -2,18 +2,8 @@ import { useEffect, useRef, useState } from "react";
 import Layout from "@/components/Layout";
 import { X } from "lucide-react";
 import { useLanguage } from "@/contexts/LanguageContext";
+import { galleryImages } from "@/lib/siteData";
 import gsap from "gsap";
-
-const galleryImages = [
-  { src: "https://images.unsplash.com/photo-1504917595217-d4dc5ebe6122?w=600&h=400&fit=crop", alt: "Lathe machine in workshop", captionKey: "gallery.img1" },
-  { src: "https://images.unsplash.com/photo-1565193566173-7a0ee3dbe261?w=600&h=400&fit=crop", alt: "Metal shaft manufacturing", captionKey: "gallery.img2" },
-  { src: "https://images.unsplash.com/photo-1581091226033-d5c48150dbaa?w=600&h=400&fit=crop", alt: "CNC metal parts", captionKey: "gallery.img3" },
-  { src: "https://images.unsplash.com/photo-1558618666-fcd25c85f82e?w=600&h=400&fit=crop", alt: "Metal workshop", captionKey: "gallery.img4" },
-  { src: "https://images.unsplash.com/photo-1590846083693-f23fdede3a7e?w=600&h=400&fit=crop", alt: "Metal gears and parts", captionKey: "gallery.img5" },
-  { src: "https://images.unsplash.com/photo-1635070041078-e363dbe005cb?w=600&h=400&fit=crop", alt: "Welding work", captionKey: "gallery.img6" },
-  { src: "https://images.unsplash.com/photo-1621905252507-b35492cc74b4?w=600&h=400&fit=crop", alt: "Industrial machinery", captionKey: "gallery.img7" },
-  { src: "https://images.unsplash.com/photo-1581092160562-40aa08e78837?w=600&h=400&fit=crop", alt: "Metal turning process", captionKey: "gallery.img8" },
-];
 
 const Gallery = () => {
   const { t } = useLanguage();

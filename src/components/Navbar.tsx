@@ -4,14 +4,7 @@ import { Menu, X, Phone, Cog } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useLanguage } from "@/contexts/LanguageContext";
 import LanguageToggle from "@/components/LanguageToggle";
-
-const navKeys = [
-  { key: "nav.home", path: "/" },
-  { key: "nav.about", path: "/about" },
-  { key: "nav.products", path: "/products" },
-  { key: "nav.gallery", path: "/gallery" },
-  { key: "nav.contact", path: "/contact" },
-];
+import { companyInfo, navLinks } from "@/lib/siteData";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -37,7 +30,6 @@ const Navbar = () => {
     >
       <div className="container mx-auto flex items-center justify-between px-4">
         <Link to="/" className="flex items-center gap-3">
-          {/* Logo Placeholder */}
           <div className="w-10 h-10 rounded-lg border border-primary/30 bg-primary/10 flex items-center justify-center shrink-0">
             <Cog className="w-5 h-5 text-primary" />
           </div>
@@ -53,7 +45,7 @@ const Navbar = () => {
 
         {/* Desktop nav */}
         <div className="hidden lg:flex items-center gap-1">
-          {navKeys.map((item) => (
+          {navLinks.map((item) => (
             <Link
               key={item.path}
               to={item.path}
@@ -67,7 +59,7 @@ const Navbar = () => {
             </Link>
           ))}
           <LanguageToggle />
-          <a href="tel:+251918353873">
+          <a href={`tel:${companyInfo.phoneRaw}`}>
             <Button size="sm" className="ml-2 font-ui gap-2 bg-primary text-primary-foreground hover:bg-primary/90">
               <Phone className="w-3.5 h-3.5" />
               {t("nav.callNow")}
@@ -91,7 +83,7 @@ const Navbar = () => {
           <div className="flex justify-end mb-2">
             <LanguageToggle />
           </div>
-          {navKeys.map((item) => (
+          {navLinks.map((item) => (
             <Link
               key={item.path}
               to={item.path}
@@ -104,7 +96,7 @@ const Navbar = () => {
               {t(item.key)}
             </Link>
           ))}
-          <a href="tel:+251918353873" className="block mt-2">
+          <a href={`tel:${companyInfo.phoneRaw}`} className="block mt-2">
             <Button className="w-full font-ui gap-2 bg-primary text-primary-foreground">
               <Phone className="w-3.5 h-3.5" />
               {t("nav.callNow")}
