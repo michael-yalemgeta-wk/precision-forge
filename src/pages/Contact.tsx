@@ -24,6 +24,11 @@ const Contact = () => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    const subject = encodeURIComponent(`Contact from ${form.name}`);
+    const body = encodeURIComponent(
+      `Name: ${form.name}\nPhone: ${form.phone}\nEmail: ${form.email}\n\nMessage:\n${form.message}`
+    );
+    window.open(`mailto:${companyInfo.email}?subject=${subject}&body=${body}`, "_self");
     toast({ title: t("contact.form.success"), description: t("contact.form.successDesc") });
     setForm({ name: "", phone: "", email: "", message: "" });
   };
