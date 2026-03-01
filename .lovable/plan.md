@@ -1,49 +1,58 @@
 
 
-# Plan: Create Centralized Site Data File
+# Plan: Update Products, Gallery Data & Contact Email
 
-## Problem
-Contact info (phone, email), gallery images, product data, Google Maps URL, and social links are hardcoded across multiple files (Index, Contact, Footer, Navbar, Gallery, Products). Updating a phone number or image requires editing 4+ files.
+## 1. Revamp Products & Categories in `siteData.ts`
 
-## Solution
-Create a single `src/lib/siteData.ts` file that exports all non-translation content: company contact details, gallery images, product definitions, and map embed URL. All pages and components will import from this file instead of hardcoding values.
+Replace current products array with the actual items the workshop produces. New categories:
 
-## File Structure
+| Category ID | EN Label | AM Label |
+|---|---|---|
+| `machines` | Workshop Machines | የወርክሾፕ ማሽኖች |
+| `products` | Fabricated Products | የተመረቱ ምርቶች |
+| `gears` | Machine Gears | የማሽን ጊሮች |
+| `spareparts` | Spare Parts | መለዋወጫ ክፍሎች |
 
-### Create: `src/lib/siteData.ts`
-Contains:
-- **`companyInfo`** — phone, email, address, map embed URL, brand name
-- **`galleryImages`** — array of `{ src, alt, captionKey }` (currently in Gallery.tsx)
-- **`products`** — array of `{ titleKey, descKey, category, icon, materials }` (currently in Products.tsx)
-- **`homeProducts`** — the 4 featured products shown on Index (currently in Index.tsx)
-- **`whyUsItems`** — the 4 "why choose us" items (currently in Index.tsx)
-- **`aboutCapabilities`** — the 4 capability items (currently in About.tsx)
-- **`navLinks`** — array of `{ path, labelKey }` for navigation
-- **`socialLinks`** — placeholder for future social media links
+**Workshop Machines** (machines they use to fabricate):
+- Lathe Machine / የቶርኖ ማሽን
+- Milling Machine / የሚሊንግ ማሽን
+- Press Machine / የፕሬስ ማሽን
+- Drill Machine / የድሪል ማሽን
 
-### Edit: `src/pages/Index.tsx`
-- Import `companyInfo`, `homeProducts`, `whyUsItems` from siteData
-- Replace hardcoded `tel:+251918353873`, `mailto:zenebetorno@gmail.com`, `+251 918 353 873` with `companyInfo.phone`, `companyInfo.email`
-- Replace inline product/whyUs arrays with imports
+**Fabricated Products** (things they produce):
+- Corn Sheller / የቦቆሎ መፈልፈያ
+- Candle Making Machine / የሻማ ማምረቻ
+- Dough Mixer / የዳቦ ማቡኪያ
+- Areki Distiller / የአረቄ ማውጫ
+- Feed Chopper / የመኖ መከትከቻ
+- Fuel-Efficient Cook Stove / ማገዶ ቆጣቢ
+- Rice Huller / የሩዝ መፈልፈያ
 
-### Edit: `src/pages/Products.tsx`
-- Import `products` from siteData, remove local `allProducts` array
+**Machine Gears**: All fabricated machine gears
 
-### Edit: `src/pages/Gallery.tsx`
-- Import `galleryImages` from siteData, remove local array
+**Spare Parts**: Any spare part manufacturing (ማነኛውንም ስፔር ፓርት ማምረት ይችላል)
 
-### Edit: `src/pages/About.tsx`
-- Import `aboutCapabilities` from siteData, remove local array
+Update `productCategories` accordingly. Add all EN + AM translations to `translations.ts`.
 
-### Edit: `src/pages/Contact.tsx`
-- Import `companyInfo` from siteData
-- Replace hardcoded phone, email, map URL with `companyInfo.*`
+## 2. Gallery Images in `siteData.ts`
 
-### Edit: `src/components/Navbar.tsx`
-- Import `companyInfo`, `navLinks` from siteData
-- Replace hardcoded phone link and nav items
+Already centralized — no structural change needed. The `src` and `captionKey` fields in `galleryImages` array are already editable from one place. Will add `descKey` field for a description per image (EN + AM translations).
 
-### Edit: `src/components/Footer.tsx`
-- Import `companyInfo`, `navLinks` from siteData
-- Replace hardcoded phone, email, address
+## 3. Contact Form — mailto: Approach
+
+Replace the current fake `handleSubmit` with a `mailto:` link that opens the user's email client pre-filled with:
+- **To**: `zenebetorno@gmail.com`
+- **Subject**: "Contact from [name]"
+- **Body**: formatted with name, phone, email, and message
+
+No backend needed — works immediately.
+
+## Files Changed
+
+| Action | File |
+|---|---|
+| Edit | `src/lib/siteData.ts` — new products, categories |
+| Edit | `src/lib/translations.ts` — all new EN/AM product strings, gallery descriptions |
+| Edit | `src/pages/Products.tsx` — minor (data-driven, should work automatically) |
+| Edit | `src/pages/Contact.tsx` — mailto: submit handler |
 
