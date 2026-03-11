@@ -1,49 +1,58 @@
 
 
-# Plan: Redesign Gallery UI + Add Video Preview on Home Page
+# Plan: Update Products, Gallery Data & Contact Email
 
-## 1. Gallery Page Redesign
+## 1. Revamp Products & Categories in `siteData.ts`
 
-**Problem**: Descriptions only show on hover (invisible on mobile), and the layout lacks visual impact.
+Replace current products array with the actual items the workshop produces. New categories:
 
-**New design**: Each gallery card is a glass card with the image on top and caption + description always visible below — no hover-to-reveal.
+| Category ID | EN Label | AM Label |
+|---|---|---|
+| `machines` | Workshop Machines | የወርክሾፕ ማሽኖች |
+| `products` | Fabricated Products | የተመረቱ ምርቶች |
+| `gears` | Machine Gears | የማሽን ጊሮች |
+| `spareparts` | Spare Parts | መለዋወጫ ክፍሎች |
 
-- Image fills the top portion with rounded corners, slight zoom on hover
-- Below the image: caption in bold, description in muted text — always visible
-- Grid layout: `grid-cols-1 sm:grid-cols-2 lg:grid-cols-3` with consistent card heights using aspect-ratio on images
-- Lightbox stays but also shows caption + description below the enlarged image
+**Workshop Machines** (machines they use to fabricate):
+- Lathe Machine / የቶርኖ ማሽን
+- Milling Machine / የሚሊንግ ማሽን
+- Press Machine / የፕሬስ ማሽን
+- Drill Machine / የድሪል ማሽን
 
-**File**: `src/pages/Gallery.tsx`
+**Fabricated Products** (things they produce):
+- Corn Sheller / የቦቆሎ መፈልፈያ
+- Candle Making Machine / የሻማ ማምረቻ
+- Dough Mixer / የዳቦ ማቡኪያ
+- Areki Distiller / የአረቄ ማውጫ
+- Feed Chopper / የመኖ መከትከቻ
+- Fuel-Efficient Cook Stove / ማገዶ ቆጣቢ
+- Rice Huller / የሩዝ መፈልፈያ
 
-## 2. Home Page — Gallery Preview Section
+**Machine Gears**: All fabricated machine gears
 
-Add a new section between "Why Choose Us" and the "Quick Contact Strip" showing 3-4 gallery images in a horizontal row with descriptions visible, plus a "View Gallery" link.
+**Spare Parts**: Any spare part manufacturing (ማነኛውንም ስፔር ፓርት ማምረት ይችላል)
 
-**File**: `src/pages/Index.tsx` — import `galleryImages` from siteData, render first 4 items
+Update `productCategories` accordingly. Add all EN + AM translations to `translations.ts`.
 
-## 3. Home Page — Looping Video Section
+## 2. Gallery Images in `siteData.ts`
 
-Add a cinematic video background section on the home page (between Hero and Featured Products). Uses a free stock metalworking/manufacturing video from a public CDN (e.g., Pexels video embed or a direct MP4 URL).
+Already centralized — no structural change needed. The `src` and `captionKey` fields in `galleryImages` array are already editable from one place. Will add `descKey` field for a description per image (EN + AM translations).
 
-- Full-width section with a `<video>` element: `autoPlay`, `muted`, `loop`, `playsInline`
-- Dark gradient overlay with a tagline like "Crafting Quality Since Day One"
-- Glassmorphism overlay text box
-- Video source stored in `siteData.ts` for easy editing
+## 3. Contact Form — mailto: Approach
 
-**Files**: `src/pages/Index.tsx`, `src/lib/siteData.ts` (add `heroVideoUrl`), `src/lib/translations.ts` (add video section text)
+Replace the current fake `handleSubmit` with a `mailto:` link that opens the user's email client pre-filled with:
+- **To**: `zenebetorno@gmail.com`
+- **Subject**: "Contact from [name]"
+- **Body**: formatted with name, phone, email, and message
 
-## 4. Translation Keys
-
-Add to `translations.ts`:
-- `home.video.heading` / `home.video.sub` (EN + AM)
-- `home.gallery.heading1` / `home.gallery.heading2` / `home.gallery.viewAll` (EN + AM)
+No backend needed — works immediately.
 
 ## Files Changed
 
 | Action | File |
 |---|---|
-| Edit | `src/pages/Gallery.tsx` — redesign cards with always-visible descriptions |
-| Edit | `src/pages/Index.tsx` — add gallery preview section + video section |
-| Edit | `src/lib/siteData.ts` — add `heroVideoUrl` |
-| Edit | `src/lib/translations.ts` — add new translation keys |
+| Edit | `src/lib/siteData.ts` — new products, categories |
+| Edit | `src/lib/translations.ts` — all new EN/AM product strings, gallery descriptions |
+| Edit | `src/pages/Products.tsx` — minor (data-driven, should work automatically) |
+| Edit | `src/pages/Contact.tsx` — mailto: submit handler |
 

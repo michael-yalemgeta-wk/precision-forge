@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import Layout from "@/components/Layout";
-import { X } from "lucide-react";
+import { X, ChevronLeft, ChevronRight } from "lucide-react";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { galleryImages } from "@/lib/siteData";
 import gsap from "gsap";
@@ -22,6 +22,12 @@ const Gallery = () => {
     }
   }, []);
 
+  const navigateLightbox = (dir: 1 | -1) => {
+    if (lightbox === null) return;
+    const next = (lightbox + dir + galleryImages.length) % galleryImages.length;
+    setLightbox(next);
+  };
+
   return (
     <Layout>
       <div className="container mx-auto px-4 py-16">
@@ -37,59 +43,79 @@ const Gallery = () => {
 
         <div
           ref={gridRef}
-          className="columns-1 sm:columns-2 lg:columns-3 gap-4 space-y-4"
+          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"
         >
           {galleryImages.map((img, i) => (
             <div
               key={i}
-              className="glass rounded-xl overflow-hidden cursor-pointer group break-inside-avoid"
+              className="glass rounded-xl overflow-hidden cursor-pointer group flex flex-col"
               onClick={() => setLightbox(i)}
             >
-              <div className="relative overflow-hidden">
+              <div className="relative overflow-hidden aspect-[4/3]">
                 <img
                   src={img.src}
                   alt={img.alt}
-                  className="w-full h-auto object-cover transition-transform duration-500 group-hover:scale-105"
+                  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                   loading="lazy"
                 />
-                <div className="absolute inset-0 pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-lg overflow-hidden">
-                  <div className="absolute inset-0 bg-black/30" />
-                  <div className="relative z-10 flex flex-col justify-end p-4">
-                    <span className="font-ui text-sm font-medium text-white">
-                      {img.caption ?? t(img.captionKey)}
-                    </span>
-                    <span className="font-body text-xs text-white/80 mt-1">
-                      {img.description ?? t(img.descKey)}
-                    </span>
-                  </div>
-                </div>
+              </div>
+              <div className="p-4 flex-1 flex flex-col gap-1">
+                <h3 className="font-ui text-sm font-semibold text-foreground">
+                  {t(img.captionKey)}
+                </h3>
+                <p className="font-body text-xs text-muted-foreground leading-relaxed">
+                  {t(img.descKey)}
+                </p>
               </div>
             </div>
           ))}
         </div>
       </div>
 
+      {/* Lightbox */}
       {lightbox !== null && (
         <div
-          className="fixed inset-0 z-[100] bg-background/90 backdrop-blur-sm flex items-center justify-center p-4"
+          className="fixed inset-0 z-[100] bg-background/90 backdrop-blur-md flex flex-col items-center justify-center p-4"
           onClick={() => setLightbox(null)}
         >
           <button
-            className="absolute top-6 right-6 text-foreground hover:text-primary transition-colors"
+            className="absolute top-6 right-6 text-foreground hover:text-primary transition-colors z-10"
             onClick={() => setLightbox(null)}
             aria-label="Close lightbox"
           >
             <X className="w-8 h-8" />
           </button>
+
+          {/* Nav arrows */}
+          <button
+            className="absolute left-4 top-1/2 -translate-y-1/2 glass rounded-full p-2 text-foreground hover:text-primary transition-colors z-10"
+            onClick={(e) => { e.stopPropagation(); navigateLightbox(-1); }}
+            aria-label="Previous image"
+          >
+            <ChevronLeft className="w-6 h-6" />
+          </button>
+          <button
+            className="absolute right-4 top-1/2 -translate-y-1/2 glass rounded-full p-2 text-foreground hover:text-primary transition-colors z-10"
+            onClick={(e) => { e.stopPropagation(); navigateLightbox(1); }}
+            aria-label="Next image"
+          >
+            <ChevronRight className="w-6 h-6" />
+          </button>
+
           <img
-            src={galleryImages[lightbox].src.replace(
-              "w=600&h=400",
-              "w=1200&h=800",
-            )}
+            src={galleryImages[lightbox].src}
             alt={galleryImages[lightbox].alt}
-            className="max-w-full max-h-[85vh] rounded-xl object-contain"
+            className="max-w-full max-h-[70vh] rounded-xl object-contain"
             onClick={(e) => e.stopPropagation()}
           />
+          <div className="mt-4 text-center max-w-lg" onClick={(e) => e.stopPropagation()}>
+            <h3 className="font-ui text-base font-semibold text-foreground">
+              {t(galleryImages[lightbox].captionKey)}
+            </h3>
+            <p className="font-body text-sm text-muted-foreground mt-1">
+              {t(galleryImages[lightbox].descKey)}
+            </p>
+          </div>
         </div>
       )}
     </Layout>

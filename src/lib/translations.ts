@@ -47,6 +47,15 @@ export const translations: Record<Language, Record<string, string>> = {
     "home.why4.title": "Fast Turnaround",
     "home.why4.desc": "Efficient workflow to meet your deadlines",
 
+    // Video section
+    "home.video.heading": "Crafting Quality Since Day One",
+    "home.video.sub": "From raw steel to precision-engineered parts — watch our workshop in action.",
+
+    // Gallery preview
+    "home.gallery.heading1": "From Our",
+    "home.gallery.heading2": "Workshop",
+    "home.gallery.viewAll": "View Full Gallery",
+
     // CTA strip
     "home.cta.heading": "Ready to start your project?",
     "home.cta.sub": "Get in touch for a free consultation and quote.",
@@ -209,6 +218,15 @@ export const translations: Record<Language, Record<string, string>> = {
     "home.why3.desc": "በትክክለኛ ዝርዝርዎ መሰረት እናመርታለን",
     "home.why4.title": "ፈጣን አገልግሎት",
     "home.why4.desc": "የእርስዎን ቀነ-ገደብ ለማሟላት ቀልጣፋ የስራ ሂደት",
+
+    // Video section
+    "home.video.heading": "ከመጀመሪያው ቀን ጀምሮ ጥራት",
+    "home.video.sub": "ከጥሬ ብረት እስከ ትክክለኛ ክፍሎች — ወርክሾፓችንን ይመልከቱ።",
+
+    // Gallery preview
+    "home.gallery.heading1": "ከወርክሾፓችን",
+    "home.gallery.heading2": "ስራዎች",
+    "home.gallery.viewAll": "ሙሉ ማዕከለ-ስዕላት ይመልከቱ",
 
     // CTA strip
     "home.cta.heading": "ፕሮጀክትዎን ለመጀመር ዝግጁ ነዎት?",
