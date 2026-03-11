@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
-import { Phone, Mail, MapPin, Cog } from "lucide-react";
+import { Phone, Mail, MapPin } from "lucide-react";
+import Logo from "@/components/Logo";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { companyInfo, navLinks } from "@/lib/siteData";
 
@@ -13,8 +14,8 @@ const Footer = () => {
           {/* Brand */}
           <div>
             <div className="flex items-center gap-3 mb-4">
-              <div className="w-10 h-10 rounded-lg border border-primary/30 bg-primary/10 flex items-center justify-center shrink-0">
-                <Cog className="w-5 h-5 text-primary" />
+              <div className="w-14 h-14 rounded-lg border border-primary/30 bg-primary/10 flex items-center justify-center shrink-0 overflow-hidden">
+                <Logo className="w-10 h-10" />
               </div>
               <div>
                 <h3 className="font-heading text-xl font-bold text-foreground leading-tight">
@@ -78,7 +79,13 @@ const Footer = () => {
 
         <div className="border-t border-border/30 mt-10 pt-6 text-center">
           <p className="font-body text-xs text-muted-foreground">
-            {t("footer.copyright").replace("{year}", new Date().getFullYear().toString())}
+            {t("footer.copyright").replace(
+              "{year}",
+              new Date().getFullYear().toString(),
+            )}
+          </p>
+          <p className="font-body text-xs text-muted-foreground mt-2">
+            Website by <span className="font-semibold text-foreground">Dream More Company</span>
           </p>
         </div>
       </div>

@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { Menu, X, Phone, Cog } from "lucide-react";
+import { Menu, X, Phone } from "lucide-react";
+import Logo from "@/components/Logo";
 import { Button } from "@/components/ui/button";
 import { useLanguage } from "@/contexts/LanguageContext";
 import LanguageToggle from "@/components/LanguageToggle";
@@ -30,8 +31,8 @@ const Navbar = () => {
     >
       <div className="container mx-auto flex items-center justify-between px-4">
         <Link to="/" className="flex items-center gap-3">
-          <div className="w-10 h-10 rounded-lg border border-primary/30 bg-primary/10 flex items-center justify-center shrink-0">
-            <Cog className="w-5 h-5 text-primary" />
+          <div className="w-14 h-14 rounded-lg border border-primary/30 bg-primary/10 flex items-center justify-center shrink-0 overflow-hidden">
+            <Logo className="w-10 h-10 text-primary" />
           </div>
           <div className="flex flex-col">
             <span className="font-heading text-lg font-bold text-foreground leading-tight">
@@ -60,7 +61,10 @@ const Navbar = () => {
           ))}
           <LanguageToggle />
           <a href={`tel:${companyInfo.phoneRaw}`}>
-            <Button size="sm" className="ml-2 font-ui gap-2 bg-primary text-primary-foreground hover:bg-primary/90">
+            <Button
+              size="sm"
+              className="ml-2 font-ui gap-2 bg-primary text-primary-foreground hover:bg-primary/90"
+            >
               <Phone className="w-3.5 h-3.5" />
               {t("nav.callNow")}
             </Button>
