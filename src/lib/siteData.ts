@@ -39,7 +39,16 @@ export const navLinks = [
 ];
 
 // ─── Social Links (placeholder for future) ───────────────────────
+// ─── Hero Video ──────────────────────────────────────────────────
+export const heroVideoUrl =
+  "https://videos.pexels.com/video-files/5532765/5532765-sd_640_360_25fps.mp4";
+
+// ─── Social Links (placeholder for future) ───────────────────────
 export const socialLinks = {
+  facebook: "",
+  telegram: "",
+  tiktok: "https://www.tiktok.com/@zenebetorno",
+};
   facebook: "",
   telegram: "",
   tiktok: "https://www.tiktok.com/@zenebetorno",

@@ -219,6 +219,15 @@ export const translations: Record<Language, Record<string, string>> = {
     "home.why4.title": "ፈጣን አገልግሎት",
     "home.why4.desc": "የእርስዎን ቀነ-ገደብ ለማሟላት ቀልጣፋ የስራ ሂደት",
 
+    // Video section
+    "home.video.heading": "ከመጀመሪያው ቀን ጀምሮ ጥራት",
+    "home.video.sub": "ከጥሬ ብረት እስከ ትክክለኛ ክፍሎች — ወርክሾፓችንን ይመልከቱ።",
+
+    // Gallery preview
+    "home.gallery.heading1": "ከወርክሾፓችን",
+    "home.gallery.heading2": "ስራዎች",
+    "home.gallery.viewAll": "ሙሉ ማዕከለ-ስዕላት ይመልከቱ",
+
     // CTA strip
     "home.cta.heading": "ፕሮጀክትዎን ለመጀመር ዝግጁ ነዎት?",
     "home.cta.sub": "ለነጻ ምክክር እና ዋጋ ግምት ያግኙን።",
